@@ -6,9 +6,6 @@ import com.jcaa.usersmanagement.application.port.in.GetAllUsersUseCase;
 import com.jcaa.usersmanagement.application.port.in.GetUserByIdUseCase;
 import com.jcaa.usersmanagement.application.port.in.LoginUseCase;
 import com.jcaa.usersmanagement.application.port.in.UpdateUserUseCase;
-import com.jcaa.usersmanagement.application.service.dto.command.UpdateUserCommand;
-import com.jcaa.usersmanagement.application.service.dto.query.GetUserByIdQuery;
-import com.jcaa.usersmanagement.domain.model.UserModel;
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.dto.CreateUserRequest;
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.dto.LoginRequest;
 import com.jcaa.usersmanagement.infrastructure.entrypoint.desktop.dto.UpdateUserRequest;
@@ -55,7 +52,9 @@ public final class UserController {
 
   public UserResponse updateUser(final UpdateUserRequest request) {
     final var command = UserDesktopMapper.toUpdateCommand(request);
-    final var user = updateUserUseCase.execute(command);
+    updateUserUseCase.execute(command);
+    final var query = UserDesktopMapper.toGetByIdQuery(request.id());
+    final var user = getUserByIdUseCase.execute(query);
     return UserDesktopMapper.toResponse(user);
   }
 
