@@ -88,4 +88,40 @@ class UserEmailTest {
     // Act & Assert
     assertThrows(InvalidUserEmailException.class, () -> new UserEmail(email));
   }
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "john.arrieta@gmail.com",
+        "john-arrieta_arreita@gmail.com.co",
+        "john1234567arreita@gmail.com"
+      })
+  @DisplayName("isValid retorna true para formatos correctos")
+  void shouldReturnTrueForValidEmailFormats(String email) {
+    // Act & Assert
+    assertTrue(UserEmail.isValid(email));
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "",
+        "   ",
+        "johnarroetaarroba-gmail.com",
+        "john.arrieta@gmail",
+        "john.arrieta@.com",
+        "john arrieta@com"
+      })
+  @DisplayName("isValid retorna false para formatos incorrectos")
+  void shouldReturnFalseForInvalidEmailFormats(String email) {
+    // Act & Assert
+    assertFalse(UserEmail.isValid(email));
+  }
+
+  @Test
+  @DisplayName("isValid retorna false para email nulo")
+  void shouldReturnFalseForNullEmail() {
+    // Act & Assert
+    assertFalse(UserEmail.isValid(null));
+  }
 }
+
