@@ -8,8 +8,7 @@ import com.jcaa.usersmanagement.domain.valueobject.UserName;
 import com.jcaa.usersmanagement.domain.valueobject.UserPassword;
 // VIOLACIÓN Regla 9 (Hexagonal): el dominio importa una clase de infraestructura.
 // Las dependencias siempre deben ir hacia el centro — nunca desde el dominio hacia afuera.
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
 // Clean Code - Regla 15 (inmutabilidad como preferencia de diseño):
 // Se cambió @Value por @Data + @AllArgsConstructor, lo que expone setters públicos
@@ -19,8 +18,7 @@ import lombok.Data;
 // Con @Value todos los campos serían final y no habría setters.
 // Con @Data + @AllArgsConstructor cualquiera puede hacer userModel.setStatus(BLOCKED)
 // desde fuera del dominio, rompiendo el encapsulamiento.
-@Data
-@AllArgsConstructor
+@Value
 public class UserModel {
 
   UserId id;
