@@ -6,8 +6,6 @@ import com.jcaa.usersmanagement.domain.valueobject.UserEmail;
 import com.jcaa.usersmanagement.domain.valueobject.UserId;
 import com.jcaa.usersmanagement.domain.valueobject.UserName;
 import com.jcaa.usersmanagement.domain.valueobject.UserPassword;
-// VIOLACIÓN Regla 9 (Hexagonal): el dominio importa una clase de infraestructura.
-// Las dependencias siempre deben ir hacia el centro — nunca desde el dominio hacia afuera.
 import lombok.Value;
 
 // Clean Code - Regla 15 (inmutabilidad como preferencia de diseño):
