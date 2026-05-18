@@ -23,7 +23,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// VIOLACIÓN Regla 11: se eliminó el javadoc de la clase que documentaba qué casos cubre.
+/**
+ * Tests para {@link UserPersistenceMapper}.
+ * 
+ * <p>Cubre: mapeo de modelo a DTO, mapeo de entidad a modelo,
+ * lectura de columnas desde {@link ResultSet} a entidad/modelos,
+ * y propagación correcta de {@link SQLException}.
+ */
 @DisplayName("UserPersistenceMapper")
 @ExtendWith(MockitoExtension.class)
 class UserPersistenceMapperTest {

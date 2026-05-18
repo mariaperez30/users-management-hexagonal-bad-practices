@@ -25,8 +25,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// VIOLACIÓN Regla 11: se eliminó el javadoc de la clase que documentaba los casos cubiertos.
-@DisplayName("EmailNotificationService")
+/**
+ * Tests para {@link EmailNotificationService}.
+ * 
+ * <p>Cubre: envío exitoso de notificaciones de creación y actualización,
+ * carga e interpolación de plantillas HTML, y propagación correcta de excepciones.
+ */
+@DisplayName("EmailNotificationService Application Service Tests")
 @ExtendWith(MockitoExtension.class)
 class EmailNotificationServiceTest {
 
@@ -61,11 +66,13 @@ class EmailNotificationServiceTest {
 
   // ── notifyUserCreated() — flujo feliz
 
-  // VIOLACIÓN Regla 11: falta @DisplayName en el método.
   @Test
+  @DisplayName("notifyUserCreated() invoca el puerto con el email y asunto correctos")
   void shouldSendCreatedNotificationToCorrectEmail() {
-    // VIOLACIÓN Regla 11: se eliminaron los comentarios Arrange–Act–Assert.
+    // Arrange & Act
     service.notifyUserCreated(user, PASSWORD);
+
+    // Assert
     verify(emailSenderPort)
         .send(
             argThat(

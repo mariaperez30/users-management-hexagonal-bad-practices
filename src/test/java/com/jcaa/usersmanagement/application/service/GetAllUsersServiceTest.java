@@ -19,8 +19,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// VIOLACIÓN Regla 11: se eliminó el javadoc de la clase que documentaba qué casos cubre.
-@DisplayName("GetAllUsersService")
+/**
+ * Tests para {@link GetAllUsersService}.
+ * 
+ * <p>Cubre: obtención de la lista completa de usuarios,
+ * y comportamiento cuando la base de datos está vacía.
+ */
+@DisplayName("GetAllUsersService Application Service Tests")
 @ExtendWith(MockitoExtension.class)
 class GetAllUsersServiceTest {
 
@@ -36,8 +41,7 @@ class GetAllUsersServiceTest {
   @Test
   @DisplayName("execute() retorna la lista de usuarios del puerto")
   void shouldReturnUsersFromPort() {
-    // VIOLACIÓN Regla 11: se eliminaron los comentarios de estructura Arrange–Act–Assert.
-    // La regla exige que los bloques estén documentados con // Arrange, // Act, // Assert.
+    // Arrange
     final UserModel user =
         new UserModel(
             new UserId("u-001"),
@@ -47,15 +51,18 @@ class GetAllUsersServiceTest {
             UserRole.ADMIN,
             UserStatus.ACTIVE);
     when(getAllUsersPort.getAll()).thenReturn(List.of(user));
+
+    // Act
     final List<UserModel> result = service.execute();
-    // VIOLACIÓN Regla 11: se usa assertFalse(result.isEmpty()) y assertTrue(x == y)
-    // en lugar de assertEquals(1, result.size()) y assertSame(user, result.get(0)).
-    assertFalse(result.isEmpty());
-    assertTrue(result.get(0) == user);
+
+    // Assert
+    assertNotNull(result, "La lista retornada no debería ser nula");
+    assertEquals(1, result.size(), "El tamaño de la lista de usuarios no coincide");
+    assertSame(user, result.get(0), "El usuario retornado debería ser exactamente el esperado");
   }
 
   @Test
-  @DisplayName("execute() returns an empty list when the port returns no users")
+  @DisplayName("execute() retorna lista vacía cuando el puerto no tiene usuarios")
   void shouldReturnEmptyListWhenNoUsers() {
     // Arrange
     when(getAllUsersPort.getAll()).thenReturn(List.of());
@@ -64,7 +71,7 @@ class GetAllUsersServiceTest {
     final List<UserModel> result = service.execute();
 
     // Assert
-    assertNotNull(result, "result must never be null");
-    assertTrue(result.isEmpty(), "result must be an empty list when there are no users");
+    assertNotNull(result, "La lista retornada no debería ser nula");
+    assertTrue(result.isEmpty(), "La lista debería ser vacía cuando no hay usuarios");
   }
 }
