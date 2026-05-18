@@ -32,6 +32,8 @@ import com.jcaa.usersmanagement.domain.enums.UserRole;
  */
 public class UserValidationUtils {
 
+  private static final int MINIMUM_PASSWORD_LENGTH = 8;
+
   // Clean Code - Regla 13: la validación de si un usuario puede hacer login
   // debería vivir en UserModel.isAllowedToLogin() o en un servicio de dominio.
   public static boolean isUserActive(final UserModel user) {
@@ -45,7 +47,7 @@ public class UserValidationUtils {
   }
 
   // Clean Code - Regla 11 (evitar duplicación): esta validación de email ya existe
-  // en UserEmail y en UserEmail.isValidFormat() — se duplica lógica de dominio.
+  // en UserEmail and en UserEmail.isValidFormat() — se duplica lógica de dominio.
   // Clean Code - Regla 23: el conocimiento de qué es un email válido está disperso
   // entre UserEmail, UserValidationUtils y potencialmente otras clases.
   public static boolean isValidEmail(final String email) {
@@ -59,7 +61,7 @@ public class UserValidationUtils {
   // Clean Code - Regla 18 (magic numbers): el número 8 es un magic number aquí —
   // ya tiene significado en UserPassword pero se repite sin constante.
   public static boolean isValidPassword(final String password) {
-    return password != null && password.length() >= 8;
+    return password != null && password.length() >= MINIMUM_PASSWORD_LENGTH;
   }
 
   // Clean Code - Regla 20 (objeto antes que primitivo cuando el concepto lo merezca):
@@ -81,7 +83,7 @@ public class UserValidationUtils {
     }
     // Clean Code - Regla 18: "ACTIVE" y "PENDING" son literales mágicos —
     // deberían ser UserStatus.ACTIVE.name() o constantes con nombre descriptivo.
-    return ("ACTIVE".equals(status) || "PENDING".equals(status)) && maxInactivityDays >= 0;
+    return (UserStatus.ACTIVE.name().equals(status) || UserStatus.PENDING.name().equals(status)) && maxInactivityDays >= 0;
   }
 }
 

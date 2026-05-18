@@ -6,9 +6,9 @@ public final class ConfigurationException extends RuntimeException {
     super(message, cause);
   }
 
+  private static final String LOAD_FAILED_MSG = "Failed to load the application configuration.";
+
   public static ConfigurationException becauseLoadFailed(final Throwable cause) {
-    // VIOLACIÓN Regla 10: texto de error hardcodeado directamente.
-    // Debe usarse una constante con nombre descriptivo en lugar de un String literal.
-    return new ConfigurationException("Failed to load the application configuration.", cause);
+    return new ConfigurationException(LOAD_FAILED_MSG, cause);
   }
 }

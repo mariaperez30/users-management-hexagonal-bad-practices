@@ -6,14 +6,15 @@ public final class InvalidUserNameException extends DomainException {
     super(message);
   }
 
+  private static final String EMPTY_USER_NAME_MSG = "The user name must not be empty.";
+  private static final String NAME_TOO_SHORT_TEMPLATE = "The user name must have at least %d characters.";
+
   public static InvalidUserNameException becauseValueIsEmpty() {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
-    return new InvalidUserNameException("The user name must not be empty.");
+    return new InvalidUserNameException(EMPTY_USER_NAME_MSG);
   }
 
   public static InvalidUserNameException becauseLengthIsTooShort(final int minimumLength) {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new InvalidUserNameException(
-        String.format("The user name must have at least %d characters.", minimumLength));
+        String.format(NAME_TOO_SHORT_TEMPLATE, minimumLength));
   }
 }
